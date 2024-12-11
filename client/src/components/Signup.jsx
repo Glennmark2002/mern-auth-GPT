@@ -12,7 +12,7 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/auth/register", formData);
+      await axios.post("https://mern-auth-gpt.onrender.com/api/auth/register", formData);
       alert("User registered successfully");
     } catch (err) {
       alert(err.response.data.error);

@@ -2,7 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import authRoutes from './routes/auth.js'; 
+import authRoutes from './routes/auth.js';
+import path from 'path'
 
 const app = express();
 app.use(cors());
@@ -13,6 +14,13 @@ const mongoURL = 'mongodb+srv://glennmarkculibra:glennmarkculibra09@book-app.kva
 mongoose.connect(mongoURL)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error(err));
+
+  app.use(express.static(path.join(__dirname, "client/build")));
+  
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client/build", "index.html"));
+  });
+  
 
 app.use("/api/auth", authRoutes);
 
